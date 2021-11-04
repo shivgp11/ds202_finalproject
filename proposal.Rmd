@@ -1,0 +1,18 @@
+---
+title: "proposal"
+author: "Shiv Patel"
+date: "11/3/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1. Individual Project: Shiv Patel
+2. Link to data source: https://www.reuters.com/investigates/special-report/usa-jails-graphic/
+3. This data set covers jail by jail mortality rates across the U.S. The data contains information on 
+ the death of 7571 inmates across 523 jails from 2008 to 2019. 
+4. My plan was look at the states, race, age, and cause of death and to find a correlation between those fields. I want to run regression on the 
+death rates as there appears to be a general increase in the mortality rates in prisons in the last decade. My questions would include how does
+race, state, and age influence the cause of death and what correlations have we seen to mortality rate. 
