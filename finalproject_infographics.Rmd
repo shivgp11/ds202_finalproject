@@ -1,0 +1,39 @@
+---
+title: "finalproject_infographics"
+author: "Shiv Patel"
+date: "12/8/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+install.packages("devtools")
+```
+```{r}
+install.packages("tidyverse")
+```
+
+```{r}
+devtools::install_github("xdaiISU/classdata")
+```
+
+```{r}
+library(classdata)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(readxl)
+library(readr)
+library(lubridate)
+```
+```{r}
+all_deaths <- all_deaths %>% drop_na()
+all_jails <- all_jails %>% drop_na()
+all_deaths
+all_jails
+```
+  
+  
