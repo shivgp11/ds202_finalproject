@@ -30,10 +30,57 @@ library(readr)
 library(lubridate)
 ```
 ```{r}
-all_deaths <- all_deaths %>% drop_na()
-all_jails <- all_jails %>% drop_na()
+all_deaths <- read.csv("all_deaths.csv")
+all_jails <- read.csv("all_jails.csv")
 all_deaths
 all_jails
 ```
+
+```{r}
+all_deaths <- all_deaths %>% select(c('id', 'state', 'year', 'jail', 'cause_short', 'age', 'race', 'gender'))
+all_deaths
+all_jails <- all_jails %>% select(c('id', 'statecode', 'jail'))
+all_jails
+```
+
+```{r}
+#all_deaths <- all_deaths %>% drop_na()
+#all_jails <- all_jails %>% drop_na()
+#all_deaths
+#all_jails
+```
+
+```{r}
+state_deaths <- all_deaths %>% group_by(state) %>% summarize(deaths = n())
+state_deaths_increasing <- state_deaths %>% arrange(deaths)
+state_deaths_decreasing <- state_deaths %>% arrange(desc(deaths))
+sdi <- state_deaths_increasing %>% head(5) %>% ggplot(aes(x = state, y=deaths)) + geom_bar(stat="identity")
+sdd <- state_deaths_decreasing %>% head(5) %>% ggplot(aes(x = state, y=deaths)) + geom_bar(stat="identity")
+sdi
+sdd
+```
+```{r}
+cause_deaths <- all_deaths %>% group_by(cause_short) %>% summarize(deaths = n())
+cause_deaths_increasing <- cause_deaths %>% arrange(deaths)
+cause_deaths_decreasing <- cause_deaths %>% arrange(desc(deaths))
+cause_deaths_increasing %>% head(5) %>% ggplot(aes(x = cause_short, y=deaths)) + geom_bar(stat="identity")
+cause_deaths_decreasing %>% head(5) %>% ggplot(aes(x = cause_short, y=deaths)) + geom_bar(stat="identity")
+```
+```{r}
+year_deaths <- all_deaths %>% group_by(year) %>% summarize(deaths = n())
+year_deaths %>% ggplot(aes(year, deaths)) + geom_point()
+year_deaths
+```
+
+```{r}
+jales_state <- all_jails %>% group_by(statecode) %>% summarize(total_jails = n())
+jales_state_increasing <- jales_state %>% arrange(total_jails)
+jales_state_decreasing <- jales_state %>% arrange(desc(total_jails))
+jales_state_increasing %>% head(5) %>% ggplot(aes(x = statecode, y=total_jails)) + geom_bar(stat="identity")
+jales_state_decreasing %>% head(5) %>% ggplot(aes(x = statecode, y=total_jails)) + geom_bar(stat="identity")
+jales_state_increasing %>% head(5)
+jales_state_decreasing %>% head(5)
+```
+
   
   
