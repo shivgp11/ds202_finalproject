@@ -10,10 +10,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-install.packages("devtools")
+#install.packages("devtools")
 ```
 ```{r}
-install.packages("tidyverse")
+#install.packages("tidyverse")
 ```
 
 ```{r}
@@ -32,15 +32,15 @@ library(lubridate)
 ```{r}
 all_deaths <- read.csv("all_deaths.csv")
 all_jails <- read.csv("all_jails.csv")
-all_deaths
-all_jails
+#all_deaths
+#all_jails
 ```
 
 ```{r}
 all_deaths <- all_deaths %>% select(c('id', 'state', 'year', 'jail', 'cause_short', 'age', 'race', 'gender'))
-all_deaths
+#all_deaths
 all_jails <- all_jails %>% select(c('id', 'statecode', 'jail'))
-all_jails
+#all_jails
 ```
 
 ```{r}
@@ -63,7 +63,7 @@ sdd
 cause_deaths <- all_deaths %>% group_by(cause_short) %>% summarize(deaths = n())
 cause_deaths_increasing <- cause_deaths %>% arrange(deaths)
 cause_deaths_decreasing <- cause_deaths %>% arrange(desc(deaths))
-cause_deaths_increasing %>% head(5) %>% ggplot(aes(x = cause_short, y=deaths)) + geom_bar(stat="identity")
+#cause_deaths_increasing %>% head(5) %>% ggplot(aes(x = cause_short, y=deaths)) + geom_bar(stat="identity")
 cause_deaths_decreasing %>% head(5) %>% ggplot(aes(x = cause_short, y=deaths)) + geom_bar(stat="identity")
 ```
 ```{r}
@@ -78,9 +78,28 @@ jales_state_increasing <- jales_state %>% arrange(total_jails)
 jales_state_decreasing <- jales_state %>% arrange(desc(total_jails))
 jales_state_increasing %>% head(5) %>% ggplot(aes(x = statecode, y=total_jails)) + geom_bar(stat="identity")
 jales_state_decreasing %>% head(5) %>% ggplot(aes(x = statecode, y=total_jails)) + geom_bar(stat="identity")
-jales_state_increasing %>% head(5)
-jales_state_decreasing %>% head(5)
+#jales_state_increasing %>% head(5)
+#jales_state_decreasing %>% head(5)
 ```
+----------------------------------------------------Project Report---------------------------------------------------------------------
 
-  
+Background: 
+
+This data set was taken off of the curated data sets listed on github. The U.S. government has a track record of not releasing any form of death rate data across prison inmates to the public. Reuters went ahead and compiled over 1500 public records in order to try get some traction on the matter. They examined the country's biggest jails, looking at the 10 largest jails in each state. Each jail also had a requirement of containing at least 750 inmates. There was a total of 523 jails examined along with 7571 prison deaths recorded from 2008-2019.
+
+Questions: 
+
+Some of the major questions that were raised from exploring the data pertained to the mortality rates and jail number across each state. More specifically: Which states had the highest mortality rates? Which states had the lowest mortality rates? What were the leading causes of deaths? Are there any visible trends in mortality rates across the 11 years? Is there a correlation between the number of jail cells in each state and the mortality rate? I was able to find an answer to all of the questions through my exploration. 
+
+Data Cleaning: 
+
+The data was loaded from multips csv files into R-Studio. I initially began by dropping the NA values from the dataset but that ended up scrapping more than have the rows. I decided to take a look at the columns that were not left blank. I found that there was a lot of bloat and excessive columns in the data. I did not find the information given in the columns to be helpful at all, and so I was able to omit them from by observations. I found that state, jail, year of death, cause of death, age, and gender were all filled for most of the rows, so those are the ones that I used. 
+
+Exploration/Visualization: 
+
+You can see from the above R code the steps that I used to clean and wrangle the data. I explored the state with the 5 highest and lowest jail deaths by grouping the all_deaths dataframe by state, and counting the number in each group. I then arranged the data in ascending and descending order, and then created bar graphs for the 5 highest rows. I followed a similar process to obtain the 5 highest and lowest causes of death, and the states with the 5 highest and lowest number of jails. The same also applies for the 5 leading causes of death. For the most part, I used bar graphs in order to display my results from exploration. I used a line graph in order to plot the total number of deaths each year from 2008-2019 to see if there was a trend at all. 
+
+Answers/Conclusion:
+
+The findings show that the 5 states with the lowest jail deaths were (in descending order) Iowa, Maine, North Dakota, Wyoming, and South Dakota. The states with the 5 lowest number of jails were DC, Arkansas, Colorado, Iowa, and Idaho. Based on the data, there doesn't appear to be a correlation between the total number of jails in each state and the number of deaths for the 5 lowest states. This is a different matter for the upper echelon. The 5 states with the highest number of jail deaths were (in descending order) California, Florida, Texas, Pennsylvania, and Georgia. The states with 5 highest number of jails were California, Florida, Texas, Alabama, and Georgia. We can see that there was a strong positive correlation between the number of jails and deaths for the 5 highest states. The 5 leading causes of death were suicide, homicide, drugs/alcohol, or unreported. I also found that there was a positive trend in total jail deaths from 2008-2019 with the number of jail deaths increasing virtually every single year. I did not have the data to find if there was specific cause for this. Further exploration of the data is needed to come to any more conclusions. 
   
